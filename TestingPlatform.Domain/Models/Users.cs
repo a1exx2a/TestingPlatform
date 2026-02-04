@@ -8,8 +8,6 @@ public class Users
     [Required]
     public string Login { get; set; }
     [Required]
-    public string PasswordHash { get; set; }
-    [Required]
     public string Email { get; set; }
     [Required]
     public string FirstName { get; set; }

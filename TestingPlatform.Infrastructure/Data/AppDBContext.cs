@@ -29,7 +29,6 @@ public class AppDbContext : DbContext
             e.HasIndex(x => x.Email).IsUnique();
             e.Property(x => x.Login).IsRequired();
             e.Property(x => x.Email).IsRequired();
-            e.Property(x => x.PasswordHash).IsRequired();
             e.Property(x => x.Role).HasConversion<string>();
             e.Property(x => x.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
             e.HasOne(x => x.Student)

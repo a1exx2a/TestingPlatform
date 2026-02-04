@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using TestingPlatform.Application.Interfaces;
 using TestingPlatform.Infrastructure.Data;
+using TestingPlatform.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
+builder.Services.AddScoped<ITestRepository, TestRepository>();
+    
+
+builder.Services.AddAutoMapper(cfg => cfg.AddMaps("TestingPlatform.Infrastructure"));
+builder.Services.AddAutoMapper(cfg => cfg.AddMaps("TestingPlatform"));
 
 var app = builder.Build();
 

@@ -24,4 +24,5 @@
 		<ProjectReference Include="..\TestingPlatform.Infrastructure\TestingPlatform.Infrastructure.csproj" />
 	</ItemGroup>
 
+
 </Project>
