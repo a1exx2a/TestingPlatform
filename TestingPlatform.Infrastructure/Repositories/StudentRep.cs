@@ -4,6 +4,7 @@ using TestingPlatform.Application.Dtos;
 using TestingPlatform.Application.Interfaces;
 using TestingPlatform.Domain.Models;
 using TestingPlatform.Infrastructure.Data;
+using TestingPlatform.Infrastructure.Exceptions;
 
 namespace TestingPlatform.Infrastructure.Repositories;
 
@@ -28,7 +29,7 @@ public class StudentRepository(AppDbContext appDbContext, IMapper mapper) : IStu
 
         if (student == null)
         {
-            throw new Exception("Студент не найден.");
+            throw new EntityNotFoundException($"Студент с id {id} не найден!");
         }
 
         return mapper.Map<StudentDto>(student);
@@ -36,7 +37,7 @@ public class StudentRepository(AppDbContext appDbContext, IMapper mapper) : IStu
 
     public async Task<int> CreateAsync(StudentDto studentDto)
     {
-        var student = mapper.Map<Student>(studentDto);
+        var student = mapper.Map<Students>(studentDto);
 
         var studentId = await appDbContext.AddAsync(student);
         await appDbContext.SaveChangesAsync();
@@ -50,7 +51,7 @@ public class StudentRepository(AppDbContext appDbContext, IMapper mapper) : IStu
 
         if (student == null)
         {
-            throw new Exception("Студент не найден.");
+            throw new EntityNotFoundException("Студент не найден.");
         }
 
         student.Phone = studentDto.Phone;
@@ -67,7 +68,7 @@ public class StudentRepository(AppDbContext appDbContext, IMapper mapper) : IStu
 
         if (student == null)
         {
-            throw new Exception("Студент не найден.");
+            throw new EntityNotFoundException("Студент не найден.");
         }
 
         appDbContext.Users.Remove(student.User);

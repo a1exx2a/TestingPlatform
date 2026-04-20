@@ -8,10 +8,10 @@ public class StudentProfile : Profile
 {
     public StudentProfile()
     {
-        CreateMap<Student, StudentDto>()
+        CreateMap<Students, StudentDto>()
             .ForMember(d => d.User, m => m.MapFrom(s => s.User));
 
-        CreateMap<StudentDto, Student>()
+        CreateMap<StudentDto, Students>()
             .ForMember(d => d.User, m => m.Ignore());
     }
 }

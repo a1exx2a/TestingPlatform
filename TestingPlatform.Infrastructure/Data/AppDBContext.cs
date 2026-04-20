@@ -5,9 +5,9 @@ namespace TestingPlatform.Infrastructure.Data;
 public class AppDbContext : DbContext
 {
     public DbSet<Users> Users => Set<Users>();
-    public DbSet<Student> Students => Set<Student>();
+    public DbSet<Students> Students => Set<Students>();
     public DbSet<Project> Projects => Set<Project>();   
-    public DbSet<Group> Groups => Set<Group>();
+    public DbSet<Groups> Groups => Set<Groups>();
     public DbSet<Direction> Directions => Set<Direction>();
     public DbSet<Course> Courses => Set<Course>();
     public DbSet<Test> Tests => Set<Test>();
@@ -33,15 +33,20 @@ public class AppDbContext : DbContext
             e.Property(x => x.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
             e.HasOne(x => x.Student)
                 .WithOne(s => s.User)   
-                .HasForeignKey<Student>(s => s.UserId)
+                .HasForeignKey<Students>(s => s.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
-        modelBuilder.Entity<Student>(e =>
+        modelBuilder.Entity<Students>(e =>
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.Phone).HasMaxLength(30).IsRequired(); ;
             e.Property(x => x.VkProfileLink).IsRequired();
+
+            //e.HasOne(s => s.Group)
+            //    .WithMany(g => g.Students)
+            //    .HasForeignKey(s => s.GroupId)
+            //    .OnDelete(DeleteBehavior.Restrict);
         });
 
         modelBuilder.Entity<Direction>(e =>
@@ -66,7 +71,7 @@ public class AppDbContext : DbContext
             e.HasIndex(x => x.Name).IsUnique();
         });
 
-        modelBuilder.Entity<Group>(e =>
+        modelBuilder.Entity<Groups>(e =>
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.Name).IsRequired();

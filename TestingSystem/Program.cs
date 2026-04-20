@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TestingPlatform.Application.Interfaces;
 using TestingPlatform.Infrastructure.Data;
 using TestingPlatform.Infrastructure.Repositories;
+using TestingPlatform.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
 builder.Services.AddScoped<ITestRepository, TestRepository>();
-    
+
 
 builder.Services.AddAutoMapper(cfg => cfg.AddMaps("TestingPlatform.Infrastructure"));
 builder.Services.AddAutoMapper(cfg => cfg.AddMaps("TestingPlatform"));
@@ -37,7 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();

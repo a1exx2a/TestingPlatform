@@ -4,6 +4,8 @@ using TestingPlatform.Application.Dtos;
 using TestingPlatform.Application.Interfaces;
 using TestingPlatform.Domain.Models;
 using TestingPlatform.Infrastructure.Data;
+using TestingPlatform.Infrastructure.Exceptions;
+
 
 namespace TestingPlatform.Infrastructure.Repositories;
 
@@ -25,7 +27,7 @@ public class AnswerRepository(AppDbContext appDbContext, IMapper mapper) :IAnswe
 
         if (answer == null)
         {
-            throw new Exception("Ответ не найден.");
+            throw new EntityNotFoundException("Ответ не найден.");
         }
 
         await appDbContext.SaveChangesAsync();

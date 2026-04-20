@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using TestingPlatform.Application.Dtos;
 using TestingPlatform.Application.Interfaces;
 using TestingPlatform.Domain.Enums;
+using TestingPlatform.Domain.Models;
+using TestingPlatform.Infrastructure.Exceptions;
 using TestingPlatform.Requests.Student;
 using TestingPlatform.Responses.Student;
 
@@ -23,6 +25,10 @@ public class StudentsController(IStudentRepository studentRepository, IUserRepos
     public async Task<IActionResult> GetStudentById(int id)
     {
         var student = await studentRepository.GetByIdAsync(id);
+        if (student == null)
+        {
+            throw new EntityNotFoundException($"Студент с id {id} не найден!");
+        }
 
         return Ok(mapper.Map<StudentResponse>(student));
     }
@@ -33,7 +39,7 @@ public class StudentsController(IStudentRepository studentRepository, IUserRepos
         var userDto = new UserDto()
         {
             Login = student.Login,
-            Password = student.Password,
+            PasswordHash = student.Password,
             Email = student.Email,
             FirstName = student.FirstName,
             MiddleName = student.MiddleName,

@@ -11,11 +11,13 @@ public class Users
     public string Email { get; set; }
     [Required]
     public string FirstName { get; set; }
+    [Required]
+    public string PasswordHash { get; set; }
     public string? MiddleName { get; set; }
     [Required]
     public string LastName { get; set; }
     public UserRole Role { get; set; }
-    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     [JsonIgnore]
-    public Student? Student { get; set; }
+    public Students? Student { get; set; }
 }

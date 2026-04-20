@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace TestingPlatform.Domain.Models;
-public class Group
+public class Groups
 {
     public int Id { get; set; }
     [Required]
@@ -15,7 +15,7 @@ public class Group
     [Required]
     public int ProjectId { get; set; }
     public Project Project { get; set; }
-    public List<Student> Students { get; set; }
+    public List<Students> Students { get; set; }
     public List<Test> Tests { get; set; }
 
 }

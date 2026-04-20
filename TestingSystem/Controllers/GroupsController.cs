@@ -4,6 +4,8 @@ using TestingPlatform.Application.Interfaces;
 using TestingPlatform.Application.Dtos;
 using TestingPlatform.Requests.Group;
 using TestingPlatform.Responses.Group;
+using TestingPlatform.Infrastructure.Exceptions;
+
 
 namespace TestingPlatform.Controllers;
 
